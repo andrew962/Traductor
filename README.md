@@ -1,0 +1,2 @@
+# Traductor
+Only translate
