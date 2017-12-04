@@ -46,7 +46,7 @@
       opacity: 1;
       right: 0;
       }
-      body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+
       .w3-row-padding img {margin-bottom: 12px}
       .w3-sidebar {width: 120px;background: #222;}
       #main {margin-left: 120px}
@@ -307,14 +307,40 @@
                   <button class="button"><span>Traducir </span></button>
                </form>
             </div>
-         </div>
+
          <div class="w3-padding-64 w3-content" id="metro">
-            <h2 class="w3-text-light-grey">Parte de metro bus</h2>
+            <h2 class="w3-text-light-grey">Consulte su saldo de metro bus</h2>
             <hr style="width:200px" class="w3-opacity">
-            <!-- Aqui abajo va la parte del detallado del metro bus en html
-            cambiale eso de parte de metro bus ponle algo pritty-->
             <!--Aqui-->
+            <form action="{{ url_for('index') }}">
+               <div class="col-xs-2">
+                  <input class="form-control" id="ex1" type="number" name="numero"  required="required">
+               </div>
+               <button type="submit" class="btn btn-success">Consultar</button>
+            </form>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Número de Tarjeta</th>
+                    <th>Saldo B/.</th>
+                    <th>Status</th>
+                    <th>Última vez usada</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ tarjeta }}</td>
+                    <td>{{ balance }}</td>
+                    <td>{{ status }}</td>
+                    <td>{{ ult_trans }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
             <!--Hasta aqui-->
+         </div>
          </div>
          <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
             <h2 class="w3-text-light-grey">Contactanos</h2>
