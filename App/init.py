@@ -2,7 +2,7 @@
 Importando los paquetes necesarios para nuestro programa o lo pueden ver en el archivo requirements.txt
 """
 
-from flask import Flask,render_template,redirect,request, url_for
+from flask import Flask,render_template,request
 from translate_api.translate_api import api
 import requests, json
 from flask_sqlalchemy import SQLAlchemy
@@ -44,12 +44,12 @@ def index():
         else:
             """
             Los valores que recogemos de la pagina
-            :var text Es la que esta recibiendo el texto que se va a traducir
-            :var siglas Es la sigla que obtenemos del idioma de la primera lista del html esta nos dice en que idioma estamos introduciendo el texto que vamos a traducir
-            :var siglas1 Es la sigla que obtenemos del idioma al cual vamos a traducir...
-            :var traductor Es el resultado de la traduccion
-            :param api(textoAtraducir,siglaDelIdiomaIntroducido,siglaDelIdiomaAtraducir)
-            :return Estamos enviandole los valores necesarios o el resultado de la traduccion
+            :var text: Es la que esta recibiendo el texto que se va a traducir
+            :var siglas: Es la sigla que obtenemos del idioma de la primera lista del html esta nos dice en que idioma estamos introduciendo el texto que vamos a traducir
+            :var siglas1: Es la sigla que obtenemos del idioma al cual vamos a traducir...
+            :var traductor: Es el resultado de la traduccion
+            :param api:(textoAtraducir,siglaDelIdiomaIntroducido,siglaDelIdiomaAtraducir)
+            :return: Estamos enviandole los valores necesarios o el resultado de la traduccion
             """
             text = request.args.get('text')
             siglas = request.args.get('siglas')
@@ -64,9 +64,9 @@ def index():
             pass
         else:
             """
-            :var numero Esta obteniendo el numero introducido del html
-            :var url es la que esta conteniendo la api y el --> .format(numero) <-- es la agregacion del numero recibido del html a la api
-            :var response Estamos haciendo una consulta a la api para ver si tiene algun valor
+            :var numero: Esta obteniendo el numero introducido del html
+            :var url: es la que esta conteniendo la api y el --> .format(numero) <-- es la agregacion del numero recibido del html a la api
+            :var response: Estamos haciendo una consulta a la api para ver si tiene algun valor
             """
             numero = request.args.get('numero')
             url = 'http://panamenio.herokuapp.com/api/com/metrobus/{}'.format(numero)
@@ -77,11 +77,11 @@ def index():
             if response.ok:
                 """
                 response.text quiere decir que de lo obtenido del llamado de la api estamos extrayendo especificamente el texto
-                :var consulta es el resultado de la api(response.text) cargada en un json para mejor manipulacion
-                :var tarjeta esta obteniendo de la api el numero de la tarjeta y eso lo hace con el valor que tiene la api 'cardId'.  
-                :var status esta obteniendo de la api si esta activa o en funcionamiento la tarjeta y eso lo hace con el valor que tiene la api 'status'.
-                :var balance esta obteniendo de la api el saldo de la tarjeta y eso lo hace con el valor que tiene la api 'balance'.
-                :var ult_trans esta obteniendo de la api la ultima ves utilizada la tarjeta y eso lo hace con el valor que tiene la api 'lastTransactionAt'.
+                :var consulta: es el resultado de la api(response.text) cargada en un json para mejor manipulacion
+                :var tarjeta: esta obteniendo de la api el numero de la tarjeta y eso lo hace con el valor que tiene la api 'cardId'.  
+                :var status: esta obteniendo de la api si esta activa o en funcionamiento la tarjeta y eso lo hace con el valor que tiene la api 'status'.
+                :var balance: esta obteniendo de la api el saldo de la tarjeta y eso lo hace con el valor que tiene la api 'balance'.
+                :var ult_trans: esta obteniendo de la api la ultima ves utilizada la tarjeta y eso lo hace con el valor que tiene la api 'lastTransactionAt'.
                 """
                 consulta = json.loads(response.text)
                 tarjeta = consulta['cardId']
@@ -110,11 +110,11 @@ def index():
                     """Imprimiendo la exception si nos causa error"""
                     print(e)
                 """
-                :return Estamos enviandole los valores necesarios de la consulta de saldo.
+                :return: Estamos enviandole los valores necesarios de la consulta de saldo.
                 """
                 return render_template('translate.html', consulta=consulta, tarjeta=tarjeta, status=status,
                                        balance=balance, ult_trans=ult_trans)
-            """:return 'translate.html'"""
+            """:return: 'translate.html'"""
             return render_template('translate.html')
         return render_template('translate.html')
 
